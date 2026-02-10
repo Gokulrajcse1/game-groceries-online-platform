@@ -7,32 +7,37 @@ import { ArrowRight, Play } from 'lucide-react'
 import { useState } from 'react'
 
 const featuredProducts = [
- { id: '1', name: 'Razer DeathStalker V2 Pro', price: 12999, image: '/images/keyboard.jpg', category: 'Keyboard' },
- { id: '2', name: 'Samsung Galaxy Buds2 Pro', price: 15999, image: '/images/airbod8.jpg', category: 'Airbods' },
- { id: '3', name: 'Monster Energy Ultra', price: 99, image: '/images/powerdrink.jpg', category: 'Energy' },
- { id: '4', name: 'EPOS Sennheiser GSP 670', price: 15999, image: '/images/headset4.jpg', category: 'Headset' },
- { id: '5', name: 'Logitech G Pro X Superlight', price: 8999, image: '/images/mouse.jpg', category: 'Mouse' },
- { id: '6', name: 'Secretlab Titan EVO 2024 Series', price: 45999, image: '/images/chair.jpg', category: 'Chair' },
- { id: '51', name: 'Sony DualSense Wireless Controller', price: 5999, image: '/images/joystick.jpg', category: 'Joystick' },
- { id: '35', name: 'Quest Nutrition Protein Bar', price: 399, image: '/images/snacks.jpg', category: 'Snacks' },
+  { id: '1', name: 'Razer DeathStalker V2 Pro', price: 12999, image: '/images/keyboard.jpg', category: 'Keyboard' },
+  { id: '2', name: 'Samsung Galaxy Buds2 Pro', price: 15999, image: '/images/airbod8.jpg', category: 'Airbods' },
+  { id: '3', name: 'Monster Energy Ultra', price: 99, image: '/images/powerdrink.jpg', category: 'Energy' },
+  { id: '4', name: 'EPOS Sennheiser GSP 670', price: 15999, image: '/images/headset4.jpg', category: 'Headset' },
+  { id: '5', name: 'Logitech G Pro X Superlight', price: 8999, image: '/images/mouse.jpg', category: 'Mouse' },
+  { id: '6', name: 'Secretlab Titan EVO 2024 Series', price: 45999, image: '/images/chair.jpg', category: 'Chair' },
+  { id: '51', name: 'Sony DualSense Wireless Controller', price: 5999, image: '/images/joystick.jpg', category: 'Joystick' },
+  { id: '35', name: 'Quest Nutrition Protein Bar', price: 399, image: '/images/snacks.jpg', category: 'Snacks' },
 ]
+
 export default function Home() {
   const router = useRouter()
   const [showDemo, setShowDemo] = useState(false)
 
+  // ✅ Google Drive Preview Link (NOT view link)
+  const demoPreviewLink =
+    'https://drive.google.com/file/d/1u5eY1gJH0XiElEm3GZcXTE4LHeXN07jb/preview'
+
   return (
     <div className="min-h-screen">
-
       {/* HERO SECTION */}
       <section className="relative h-screen flex items-center justify-center bg-cyber-dark overflow-hidden">
         
-        {/* BACKGROUND VIDEO */}
+        {/* BACKGROUND VIDEO (LOCAL - BEST FOR AUTOPLAY) */}
         <video
           className="absolute top-0 left-0 w-full h-full object-cover"
           src="/videos/girlgamer.mp4"
           autoPlay
           loop
           muted
+          playsInline
         />
 
         {/* GRADIENT OVERLAY */}
@@ -58,6 +63,7 @@ export default function Home() {
               <ArrowRight className="w-5 h-5" />
             </Button>
 
+            {/* WATCH DEMO (OPENS MODAL IN SAME PAGE) */}
             <Button
               onClick={() => setShowDemo(true)}
               variant="glow"
@@ -73,16 +79,16 @@ export default function Home() {
       {/* 🎬 DEMO VIDEO MODAL */}
       {showDemo && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur">
-
+          
           {/* Click outside to close */}
           <div
             className="absolute inset-0"
             onClick={() => setShowDemo(false)}
           />
 
-          {/* Video Container */}
+          {/* Modal Box */}
           <div className="relative z-50 w-[90%] max-w-4xl bg-black rounded-2xl overflow-hidden shadow-2xl">
-
+            
             {/* Close Button */}
             <button
               onClick={() => setShowDemo(false)}
@@ -91,12 +97,12 @@ export default function Home() {
               ✕
             </button>
 
-            {/* Video */}
-            <video
-              src="/videos/playingdemo.mp4"
-              controls
-              autoPlay
-              className="w-full h-auto"
+            {/* ✅ Google Drive Video */}
+            <iframe
+              src={demoPreviewLink}
+              className="w-full aspect-video"
+              allow="autoplay"
+              allowFullScreen
             />
           </div>
         </div>
@@ -118,7 +124,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
     </div>
   )
 }

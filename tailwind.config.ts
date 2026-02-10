@@ -32,14 +32,14 @@ const config: Config = {
           '50%': { boxShadow: '0 0 40px rgba(0, 255, 255, 0.6)' },
         },
         slideIn: {
-          '0%': { transform: 'translateX(100%)', opacity: 0 },
-          '100%': { transform: 'translateX(0)', opacity: 1 },
+          '0%': { transform: 'translateX(100%)', opacity: '0' },
+          '100%': { transform: 'translateX(0)', opacity: '1' },
         },
         bounceGlow: {
-          '0%': { transform: 'scale(0.3)', opacity: 0 },
+          '0%': { transform: 'scale(0.3)', opacity: '0' },
           '50%': { transform: 'scale(1.05)' },
           '70%': { transform: 'scale(0.9)' },
-          '100%': { transform: 'scale(1)', opacity: 1 },
+          '100%': { transform: 'scale(1)', opacity: '1' },
         },
       },
       colors: {

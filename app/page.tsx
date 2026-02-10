@@ -1,65 +1,124 @@
-import Image from "next/image";
+'use client'
 
+import ProductCard from '@/components/ui/productcard'
+import Button from '@/components/ui/Button'
+import { useRouter } from 'next/navigation'
+import { ArrowRight, Play } from 'lucide-react'
+import { useState } from 'react'
+
+const featuredProducts = [
+ { id: '1', name: 'Razer DeathStalker V2 Pro', price: 12999, image: '/images/keyboard.jpg', category: 'Keyboard' },
+ { id: '2', name: 'Samsung Galaxy Buds2 Pro', price: 15999, image: '/images/airbod8.jpg', category: 'Airbods' },
+ { id: '3', name: 'Monster Energy Ultra', price: 99, image: '/images/powerdrink.jpg', category: 'Energy' },
+ { id: '4', name: 'EPOS Sennheiser GSP 670', price: 15999, image: '/images/headset4.jpg', category: 'Headset' },
+ { id: '5', name: 'Logitech G Pro X Superlight', price: 8999, image: '/images/mouse.jpg', category: 'Mouse' },
+ { id: '6', name: 'Secretlab Titan EVO 2024 Series', price: 45999, image: '/images/chair.jpg', category: 'Chair' },
+ { id: '51', name: 'Sony DualSense Wireless Controller', price: 5999, image: '/images/joystick.jpg', category: 'Joystick' },
+ { id: '35', name: 'Quest Nutrition Protein Bar', price: 399, image: '/images/snacks.jpg', category: 'Snacks' },
+]
 export default function Home() {
+  const router = useRouter()
+  const [showDemo, setShowDemo] = useState(false)
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="min-h-screen">
+
+      {/* HERO SECTION */}
+      <section className="relative h-screen flex items-center justify-center bg-cyber-dark overflow-hidden">
+        
+        {/* BACKGROUND VIDEO */}
+        <video
+          className="absolute top-0 left-0 w-full h-full object-cover"
+          src="/videos/girlgamer.mp4"
+          autoPlay
+          loop
+          muted
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+
+        {/* GRADIENT OVERLAY */}
+        <div className="absolute inset-0 bg-gradient-to-b from-cyber-dark via-cyber-dark/80 to-cyber-dark" />
+
+        {/* HERO CONTENT */}
+        <div className="relative z-10 max-w-7xl mx-auto px-8 text-center text-white">
+          <h1 className="text-7xl md:text-8xl font-gaming font-black bg-gradient-to-r from-neon-cyan via-neon-pink to-neon-green bg-clip-text text-transparent mb-8">
+            GEAR UP<br />
+            <span className="text-6xl">FUEL ON</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p className="text-xl max-w-2xl mx-auto mb-12">
+            Premium gaming gear & energy snacks delivered fast.
           </p>
+
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <Button
+              onClick={() => router.push('/shop')}
+              className="px-12 shadow-2xl flex items-center gap-2"
+            >
+              Shop Gaming Gear
+              <ArrowRight className="w-5 h-5" />
+            </Button>
+
+            <Button
+              onClick={() => setShowDemo(true)}
+              variant="glow"
+              className="px-10 flex items-center gap-2"
+            >
+              <Play className="w-5 h-5" />
+              Watch Demo
+            </Button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      </section>
+
+      {/* 🎬 DEMO VIDEO MODAL */}
+      {showDemo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur">
+
+          {/* Click outside to close */}
+          <div
+            className="absolute inset-0"
+            onClick={() => setShowDemo(false)}
+          />
+
+          {/* Video Container */}
+          <div className="relative z-50 w-[90%] max-w-4xl bg-black rounded-2xl overflow-hidden shadow-2xl">
+
+            {/* Close Button */}
+            <button
+              onClick={() => setShowDemo(false)}
+              className="absolute top-4 right-4 text-white text-2xl font-bold z-50"
+            >
+              ✕
+            </button>
+
+            {/* Video */}
+            <video
+              src="/videos/playingdemo.mp4"
+              controls
+              autoPlay
+              className="w-full h-auto"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
         </div>
-      </main>
+      )}
+
+      {/* FEATURED PRODUCTS */}
+      <section className="py-32 bg-cyber-dark/20">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-gaming font-bold bg-gradient-to-r from-neon-cyan to-neon-pink bg-clip-text mb-6">
+              Featured Drops
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {featuredProducts.map(product => (
+              <ProductCard key={product.id} {...product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
     </div>
-  );
+  )
 }
